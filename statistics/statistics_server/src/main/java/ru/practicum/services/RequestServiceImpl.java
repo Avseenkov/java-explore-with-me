@@ -43,14 +43,15 @@ public class RequestServiceImpl implements RequestService {
         NumberExpression<Long> ip;
 
         if (unique) {
-            ip = QRequest.request.ip.countDistinct().as("hits");
+            ip = QRequest.request.ip.countDistinct();
         } else {
-            ip = QRequest.request.ip.count().as("hits");
+            ip = QRequest.request.ip.count();
         }
         JPAQuery<RequestResponseDTO> jpaQuery = queryFactory.from(QRequest.request)
-                .select(Projections.fields(RequestResponseDTO.class, QRequest.request.app, QRequest.request.uri, ip))
+                .select(Projections.fields(RequestResponseDTO.class, QRequest.request.app, QRequest.request.uri, ip.as("hits")))
                 .where(query)
-                .groupBy(QRequest.request.app, QRequest.request.uri);
+                .groupBy(QRequest.request.app, QRequest.request.uri)
+                .orderBy(ip.desc());
 
         return jpaQuery.fetch();
 
