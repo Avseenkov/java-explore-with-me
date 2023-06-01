@@ -17,6 +17,7 @@ services:
 
   stats-db:
     image: postgres:14-alpine
+    container_name: stats-db
     ports:
       - "5442:5432"
     environment:
