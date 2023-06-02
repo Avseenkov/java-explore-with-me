@@ -28,8 +28,8 @@ public class RequestController {
     public List<RequestResponseDTO> getStat(
             @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
             @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
-            @RequestParam(required = false) String[] uris,
-            @RequestParam(required = false, defaultValue = "false") boolean unique) {
+            @RequestParam(required = false) List<String> uris,
+            @RequestParam(defaultValue = "false") boolean unique) {
         return requestService.getStat(start, end, uris, unique);
     }
 }

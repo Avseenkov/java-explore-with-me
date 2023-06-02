@@ -14,7 +14,7 @@ public class RequestMapper {
         request.setIp(requestDTO.getIp());
         request.setUri(requestDTO.getUri());
         request.setApp(requestDTO.getApp());
-        request.setTimestamp(LocalDateTime.parse(requestDTO.getTimestamp(), format));
+        request.setCreatedAt(LocalDateTime.parse(requestDTO.getTimestamp(), format));
         return request;
     }
 
@@ -24,7 +24,7 @@ public class RequestMapper {
         requestDTO.setUri(request.getUri());
         requestDTO.setApp(request.getApp());
         requestDTO.setId(request.getId());
-        requestDTO.setTimestamp(request.getTimestamp().format(format));
+        requestDTO.setTimestamp(request.getCreatedAt().format(format));
 
         return requestDTO;
     }

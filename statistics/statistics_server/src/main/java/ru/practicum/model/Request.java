@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity(name = "request")
+@Entity
 @Table(name = "requests")
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "request_id")
+    @Column(name = "requestId")
     public Long id;
 
     @NotBlank
@@ -26,7 +26,8 @@ public class Request {
     public String ip;
 
     @NotNull
-    public LocalDateTime timestamp;
+    @Column(name = "createdAt")
+    public LocalDateTime createdAt;
 
     @NotBlank
     public String uri;

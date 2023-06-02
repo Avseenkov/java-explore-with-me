@@ -10,5 +10,5 @@ public interface RequestService {
 
     RequestDTO save(RequestDTO requestDTO);
 
-    List<RequestResponseDTO> getStat(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique);
+    List<RequestResponseDTO> getStat(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique);
 }

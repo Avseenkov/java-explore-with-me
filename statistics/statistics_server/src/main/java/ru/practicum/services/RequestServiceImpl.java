@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import ru.practicum.dto.RequestDTO;
 import ru.practicum.dto.RequestResponseDTO;
 import ru.practicum.model.QRequest;
-import ru.practicum.model.Request;
 import ru.practicum.model.RequestMapper;
 import ru.practicum.repositories.RequestRepository;
 
@@ -21,32 +20,26 @@ import java.util.List;
 @AllArgsConstructor
 public class RequestServiceImpl implements RequestService {
 
-    RequestRepository requestRepository;
+    private RequestRepository requestRepository;
 
-    JPAQueryFactory queryFactory;
+    private JPAQueryFactory queryFactory;
 
     @Override
     public RequestDTO save(RequestDTO requestDTO) {
-        Request request = requestRepository.save(RequestMapper.requestFromRequestDTO(requestDTO));
-        return RequestMapper.requestDTOFrom(request);
+        return RequestMapper.requestDTOFrom(requestRepository.save(RequestMapper.requestFromRequestDTO(requestDTO)));
     }
 
     @Override
-    public List<RequestResponseDTO> getStat(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
+    public List<RequestResponseDTO> getStat(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
 
-        BooleanExpression query = QRequest.request.timestamp.between(start, end);
+        BooleanExpression query = QRequest.request.createdAt.between(start, end);
 
         if (uris != null) {
             query = query.and(QRequest.request.uri.in(uris));
         }
 
-        NumberExpression<Long> ip;
+        NumberExpression<Long> ip = unique ? QRequest.request.ip.countDistinct() : QRequest.request.ip.count();
 
-        if (unique) {
-            ip = QRequest.request.ip.countDistinct();
-        } else {
-            ip = QRequest.request.ip.count();
-        }
         JPAQuery<RequestResponseDTO> jpaQuery = queryFactory.from(QRequest.request)
                 .select(Projections.fields(RequestResponseDTO.class, QRequest.request.app, QRequest.request.uri, ip.as("hits")))
                 .where(query)

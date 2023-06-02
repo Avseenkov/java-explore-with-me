@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class RequestDTO {
 
 
-    Long id;
+    public Long id;
 
     @NotNull
     public String app;
