@@ -10,16 +10,16 @@ import javax.validation.constraints.NotNull;
 public class RequestDTO {
 
 
-    public Long id;
+    private Long id;
 
     @NotNull
-    public String app;
+    private String app;
 
     @NotNull
-    public String ip;
+    private String ip;
 
-    public String timestamp;
+    private String timestamp;
 
     @NotNull
-    public String uri;
+    private String uri;
 }

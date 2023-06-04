@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 public class RequestResponseDTO {
 
-    public String app;
+    private String app;
 
-    public String uri;
+    private String uri;
 
-    public Long hits;
+    private Long hits;
 }

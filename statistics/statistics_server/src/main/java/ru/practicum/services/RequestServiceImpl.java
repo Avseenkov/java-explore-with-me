@@ -3,7 +3,6 @@ package ru.practicum.services;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,13 +39,11 @@ public class RequestServiceImpl implements RequestService {
 
         NumberExpression<Long> ip = unique ? QRequest.request.ip.countDistinct() : QRequest.request.ip.count();
 
-        JPAQuery<RequestResponseDTO> jpaQuery = queryFactory.from(QRequest.request)
+        return queryFactory.from(QRequest.request)
                 .select(Projections.fields(RequestResponseDTO.class, QRequest.request.app, QRequest.request.uri, ip.as("hits")))
                 .where(query)
                 .groupBy(QRequest.request.app, QRequest.request.uri)
-                .orderBy(ip.desc());
-
-        return jpaQuery.fetch();
+                .orderBy(ip.desc()).fetch();
 
     }
 }

@@ -17,19 +17,19 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "requestId")
-    public Long id;
+    private Long id;
 
     @NotBlank
-    public String app;
+    private String app;
 
     @NotBlank
-    public String ip;
+    private String ip;
 
     @NotNull
     @Column(name = "createdAt")
-    public LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @NotBlank
-    public String uri;
+    private String uri;
 
 }
