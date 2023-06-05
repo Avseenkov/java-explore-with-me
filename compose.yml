@@ -1,0 +1,56 @@
+version: '3.1'
+services:
+  stats-server:
+    build: statistics/statistics_server
+    container_name: stats-server
+    ports:
+      - "9090:9090"
+    depends_on:
+      - stats-db
+
+    environment:
+          - DATABASE_NAME=stats
+          - DATABASE_HOST=stats-db
+          - DATABASE_USERNAME=postgres
+          - DATABASE_PASSWORD=pgpwd
+          - DATABASE_HOST_PORT=5432
+
+  stats-db:
+    image: postgres:14-alpine
+    container_name: stats-db
+    ports:
+      - "5442:5432"
+    environment:
+      - POSTGRES_DB=stats
+      - POSTGRES_NAME=admin
+      - POSTGRES_PASSWORD=pgpwd
+    volumes:
+      - stats:/var/db
+
+  ewm-service:
+    build: ewm-service
+    container_name: ewm-service
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - ewm-db
+      - stats-server
+
+  ewm-db:
+    image: postgres:14-alpine
+    container_name: ewm-db
+    ports:
+      -  "5443:5432"
+
+    environment:
+      - POSTGRES_DB=ewm-db
+      - POSTGRES_NAME=admin
+      - POSTGRES_PASSWORD=pgpwd
+    volumes:
+      - ewm-db:/var/db
+
+volumes:
+  stats:
+  ewm-db:
+
