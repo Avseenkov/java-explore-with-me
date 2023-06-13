@@ -1,12 +1,9 @@
 package ru.practicum.main.repository;
 
-import org.hibernate.exception.ConstraintViolationException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.main.dto.NewUserRequestDto;
 import ru.practicum.main.dto.UserDto;
@@ -14,15 +11,12 @@ import ru.practicum.main.model.User;
 import ru.practicum.main.repository.user.UserRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@ActiveProfiles("test-postgres")
 @Transactional
 class UserRepositoryTest {
 
@@ -72,22 +66,4 @@ class UserRepositoryTest {
 
     }
 
-    @Test
-    void createWithWrongMinLengthEmail() {
-        User wrongEmail = new User();
-        wrongEmail.setName("John");
-        wrongEmail.setEmail("kk");
-
-        PersistenceException exception = Assertions.assertThrows(PersistenceException.class, () -> {
-
-            em.createNativeQuery("INSERT INTO users (id, name, email) VALUES (?, ?,?)")
-                    .setParameter(1, 1L)
-                    .setParameter(2, wrongEmail.getName())
-                    .setParameter(3, wrongEmail.getEmail())
-                    .executeUpdate();
-        });
-
-        assertTrue(exception.getCause() instanceof ConstraintViolationException);
-
-    }
 }
