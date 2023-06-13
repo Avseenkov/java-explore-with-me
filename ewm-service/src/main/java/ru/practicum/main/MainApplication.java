@@ -2,10 +2,12 @@ package ru.practicum.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients(basePackageClasses = ru.practicum.statistics_client.client.StatClient.class)
+@ConfigurationPropertiesScan("ru.practicum.main.config")
 public class MainApplication {
 
 

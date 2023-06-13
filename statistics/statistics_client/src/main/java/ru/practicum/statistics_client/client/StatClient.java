@@ -21,7 +21,7 @@ public interface StatClient {
     List<RequestResponseDTO> getStats(
             @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
             @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
-            @RequestParam String[] uris,
+            @RequestParam List<String> uris,
             @RequestParam(defaultValue = "false") boolean unique
     );
 
@@ -36,7 +36,7 @@ public interface StatClient {
     List<RequestResponseDTO> getStats(
             @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
             @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
-            @RequestParam(required = false) String[] uris
+            @RequestParam(required = false) List<String> uris
     );
 
     @RequestMapping(method = RequestMethod.GET,
@@ -48,7 +48,10 @@ public interface StatClient {
             @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end
     );
 
-    @RequestMapping(method = RequestMethod.POST, value = "/stats")
+    @RequestMapping(method = RequestMethod.POST,
+            value = "/hit",
+            produces = "application/json",
+            consumes = "application/json")
     RequestDTO saveStat(@RequestBody RequestDTO request);
 
 }
