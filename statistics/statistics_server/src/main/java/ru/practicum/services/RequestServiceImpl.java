@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.RequestDTO;
 import ru.practicum.dto.RequestResponseDTO;
+import ru.practicum.exception.BadRequestException;
 import ru.practicum.model.QRequest;
 import ru.practicum.model.RequestMapper;
 import ru.practicum.repositories.RequestRepository;
@@ -35,6 +36,10 @@ public class RequestServiceImpl implements RequestService {
 
         if (uris != null) {
             query = query.and(QRequest.request.uri.in(uris));
+        }
+
+        if (end.isBefore(start)) {
+            throw new BadRequestException("End date cannot be early then start date");
         }
 
         NumberExpression<Long> ip = unique ? QRequest.request.ip.countDistinct() : QRequest.request.ip.count();
