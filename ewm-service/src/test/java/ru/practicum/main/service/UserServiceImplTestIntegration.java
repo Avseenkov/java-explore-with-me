@@ -28,10 +28,10 @@ import static org.hamcrest.Matchers.*;
 class UserServiceImplTestIntegration {
 
     @Autowired
-    public UserServiceImpl userService;
+    UserServiceImpl userService;
 
     @Autowired
-    public EntityManager em;
+    EntityManager em;
 
     User user;
 
@@ -39,7 +39,7 @@ class UserServiceImplTestIntegration {
 
     NewUserRequestDto newUser;
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
@@ -96,7 +96,7 @@ class UserServiceImplTestIntegration {
     }
 
     @Test
-    public void getFirst2Users() {
+    void getFirst2Users() {
         NewUserRequestDto user1 = createUser("test1", "test@test.ru");
         NewUserRequestDto user2 = createUser("test2", "test2@test.ru");
         NewUserRequestDto user3 = createUser("test3", "test3@test.ru");
@@ -112,7 +112,7 @@ class UserServiceImplTestIntegration {
     }
 
     @Test
-    public void getSecondPage() {
+    void getSecondPage() {
         NewUserRequestDto user1 = createUser("test1", "test@test.ru");
         NewUserRequestDto user2 = createUser("test2", "test2@test.ru");
         NewUserRequestDto user3 = createUser("test3", "test3@test.ru");
@@ -128,17 +128,15 @@ class UserServiceImplTestIntegration {
     }
 
     @Test
-    public void getEmptyList() {
-
+    void getEmptyList() {
 
         List<UserDto> users = userService.findUsers(0, 10, null);
         assertThat(users.size(), equalTo(0));
 
-
     }
 
     @Test
-    public void getUsersByIds() {
+    void getUsersByIds() {
 
         List<User> users = List.of(
                 createUserForDb("test", "test1@test.com"),
@@ -169,7 +167,7 @@ class UserServiceImplTestIntegration {
     }
 
     @Test
-    public void deleteUser() {
+    void deleteUser() {
         List<User> users = List.of(
                 createUserForDb("test", "test1@test.com"),
                 createUserForDb("tes2", "test2@test.com"),
@@ -194,20 +192,20 @@ class UserServiceImplTestIntegration {
     }
 
     @Test
-    public void deleteWrongUser() {
+    void deleteWrongUser() {
 
         Assertions.assertThrows(NotFoundException.class, () ->
                 userService.deleteUser(1L));
     }
 
-    private NewUserRequestDto createUser(String name, String email) {
+    NewUserRequestDto createUser(String name, String email) {
         NewUserRequestDto user = new NewUserRequestDto();
         user.setEmail(email);
         user.setName(name);
         return user;
     }
 
-    private User createUserForDb(String name, String email) {
+    User createUserForDb(String name, String email) {
         User user = new User();
         user.setEmail(email);
         user.setName(name);

@@ -64,7 +64,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    public void updateCategory() {
+    void updateCategory() {
 
         Category category = createCategory("first");
         em.persist(category);
@@ -83,7 +83,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    public void updateEmptyName() {
+    void updateEmptyName() {
         Category category = createCategory("first");
         em.persist(category);
         em.flush();
@@ -96,13 +96,13 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    public void updateNotExistCategory() {
+    void updateNotExistCategory() {
         NewCategoryDto newCategory = createNewCategoryDto("test");
         assertThrows(NotFoundException.class, () ->
                 categoryService.updateCategory(newCategory, 22L));
     }
 
-    private NewCategoryDto createNewCategoryDto(String name) {
+    NewCategoryDto createNewCategoryDto(String name) {
         NewCategoryDto newCategoryDto = new NewCategoryDto();
         newCategoryDto.setName(name);
         return newCategoryDto;
@@ -126,13 +126,13 @@ class CategoryServiceImplTest {
         assertThat(categories, hasSize(0));
     }
 
-    private Category createCategory(String name) {
+    Category createCategory(String name) {
         Category category = new Category();
         category.setName(name);
         return category;
     }
 
-    private String getLongName(int size) {
+    String getLongName(int size) {
         StringBuilder sb = new StringBuilder(size);
         for (int i = 0; i <= size; i++) {
             sb.append("a");

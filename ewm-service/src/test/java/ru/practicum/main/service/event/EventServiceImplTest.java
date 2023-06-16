@@ -1,10 +1,12 @@
 package ru.practicum.main.service.event;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.main.dto.EventFullDto;
 import ru.practicum.main.dto.EventShortDto;
 import ru.practicum.main.dto.NewEventDto;
 import ru.practicum.main.model.Category;
@@ -12,6 +14,7 @@ import ru.practicum.main.model.Event;
 import ru.practicum.main.model.State;
 import ru.practicum.main.model.User;
 import ru.practicum.main.utils.CreateTestData;
+import ru.practicum.statistics_client.client.StatClient;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -29,13 +32,16 @@ import static org.hamcrest.Matchers.hasSize;
 class EventServiceImplTest {
 
     @Autowired
-    public EventService eventService;
+    EventService eventService;
+
+    @Mock
+    StatClient statClient;
 
     @Autowired
-    public EntityManager em;
+    EntityManager em;
 
     @Test
-    public void createEvent() {
+    void createEvent() {
         User user = CreateTestData.createUser("test", "test@test.ru");
         Category category = CreateTestData.createCategory("event");
 
@@ -112,7 +118,7 @@ class EventServiceImplTest {
 
     }
 
-    public List<Event> getEvents() {
+    List<Event> getEvents() {
         List<Event> events = new ArrayList<>();
 
         String annotation = "Сплав на байдарках похож на полет.";
@@ -175,9 +181,9 @@ class EventServiceImplTest {
             em.persist(event);
         }
 
-//        EventFullDto eventFullDto = eventService.getEvent(user.getId(), events.get(0).getId());
-//
-//        assertThat(eventFullDto.getId(), equalTo(events.get(0).getId()));
-//        assertThat(eventFullDto.getTitle(), equalTo(events.get(0).getTitle()));
+        EventFullDto eventFullDto = eventService.getEvent(user.getId(), events.get(0).getId());
+
+        assertThat(eventFullDto.getId(), equalTo(events.get(0).getId()));
+        assertThat(eventFullDto.getTitle(), equalTo(events.get(0).getTitle()));
     }
 }

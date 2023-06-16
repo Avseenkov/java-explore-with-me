@@ -183,7 +183,7 @@ class UserAdminControllerTest {
     }
 
     @Test
-    public void deleteUserWrongUser() throws Exception {
+    void deleteUserWrongUser() throws Exception {
         Mockito.doThrow(NotFoundException.class)
                 .when(userService).deleteUser(Mockito.anyLong());
 
@@ -193,7 +193,7 @@ class UserAdminControllerTest {
 
 
     @Test
-    public void deleteUser() throws Exception {
+    void deleteUser() throws Exception {
         Mockito.doNothing().when(userService).deleteUser(Mockito.anyLong());
 
         mvc.perform(delete("/admin/user/{id}", 1L))
@@ -201,7 +201,7 @@ class UserAdminControllerTest {
 
     }
 
-    private UserDto createUserDto(String name, String email, Long id) {
+    UserDto createUserDto(String name, String email, Long id) {
         UserDto user = new UserDto();
         user.setEmail(email);
         user.setName(name);

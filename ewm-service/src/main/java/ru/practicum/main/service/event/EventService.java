@@ -12,7 +12,7 @@ public interface EventService {
 
     List<EventShortDto> getUserEvents(Long userId, int from, int size);
 
-    EventFullDto getEvent(Long userId, Long evenId, HttpServletRequest request);
+    EventFullDto getEvent(Long userId, Long evenId);
 
     EventFullDto getPublicEvent(Long evenId,  HttpServletRequest request);
 

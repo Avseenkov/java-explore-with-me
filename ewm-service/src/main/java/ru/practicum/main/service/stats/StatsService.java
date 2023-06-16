@@ -39,6 +39,7 @@ public class StatsService {
         List<RequestResponseDTO> response = statClient.getStats(minDate.get(), LocalDateTime.now(), urls, unique);
 
         response.stream().forEach(requestResponseDTO -> views.put(Long.parseLong(requestResponseDTO.getUri().split("/events/")[1]), requestResponseDTO.getHits()));
+
         return views;
     }
 }

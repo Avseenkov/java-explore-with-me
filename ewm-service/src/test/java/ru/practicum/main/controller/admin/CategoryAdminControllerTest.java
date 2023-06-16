@@ -137,13 +137,13 @@ class CategoryAdminControllerTest {
                 .andExpect(status().isConflict());
     }
 
-    private NewCategoryDto createNewCategoryDto(String name) {
+    NewCategoryDto createNewCategoryDto(String name) {
         NewCategoryDto newCategoryDto = new NewCategoryDto();
         newCategoryDto.setName(name);
         return newCategoryDto;
     }
 
-    private CategoryDto createCategoryDto(String name, Long id) {
+    CategoryDto createCategoryDto(String name, Long id) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setName(name);
         categoryDto.setId(id);

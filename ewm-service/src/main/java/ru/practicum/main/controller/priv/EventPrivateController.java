@@ -8,7 +8,6 @@ import ru.practicum.main.dto.*;
 import ru.practicum.main.service.event.EventService;
 import ru.practicum.statistics_client.client.StatClient;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -42,11 +41,10 @@ public class EventPrivateController {
     @ResponseStatus(HttpStatus.OK)
     public EventFullDto getEvent(
             @PathVariable Long userId,
-            @PathVariable Long eventId,
-            HttpServletRequest request
+            @PathVariable Long eventId
     ) {
 
-        return eventService.getEvent(userId, eventId, request);
+        return eventService.getEvent(userId, eventId);
     }
 
     @PatchMapping("/{userId}/events/{eventId}")

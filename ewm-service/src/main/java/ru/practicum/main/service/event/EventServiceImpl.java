@@ -71,7 +71,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public EventFullDto getEvent(Long userId, Long evenId, HttpServletRequest request) {
+    public EventFullDto getEvent(Long userId, Long evenId) {
         userRepository.getUserFromDb(userId);
 
         return EventMapper.toEventFullDto(eventRepository.getEventFromDb(evenId));
