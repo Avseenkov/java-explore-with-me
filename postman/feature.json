@@ -80,7 +80,18 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/users/:userId/comments",
 											"host": [
@@ -173,7 +184,18 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/users/:userId/comments",
 											"host": [
@@ -266,7 +288,13 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/users/:userId/comments",
 											"host": [
@@ -355,7 +383,13 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/users/:userId/comments?eventId=0",
 											"host": [
