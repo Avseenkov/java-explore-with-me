@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Setter
@@ -72,6 +73,9 @@ public class Event {
     @OneToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "event")
+    private List<Comment> comments;
 
     @PrePersist
     private void onPrePersist() {

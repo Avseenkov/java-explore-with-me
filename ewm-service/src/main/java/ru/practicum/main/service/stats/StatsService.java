@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,16 +26,18 @@ public class StatsService {
             return views;
         }
 
-        Optional<LocalDateTime> minDate = events.stream().map(Event::getPublishedOn).min(LocalDateTime::compareTo);
+        LocalDateTime minDate = events.stream().map(Event::getPublishedOn)
+                .min(LocalDateTime::compareTo).orElse(null);
 
-        if (!minDate.isPresent()) {
+
+        if (minDate == null) {
             return views;
         }
 
         List<String> urls = events.stream().map(event -> String.format("/events/%s", event.getId())).collect(Collectors.toList());
 
 
-        List<RequestResponseDTO> response = statClient.getStats(minDate.get(), LocalDateTime.now(), urls, unique);
+        List<RequestResponseDTO> response = statClient.getStats(minDate, LocalDateTime.now(), urls, unique);
 
         response.stream().forEach(requestResponseDTO -> views.put(Long.parseLong(requestResponseDTO.getUri().split("/events/")[1]), requestResponseDTO.getHits()));
 

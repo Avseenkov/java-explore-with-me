@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.main.dto.*;
 import ru.practicum.main.service.event.EventService;
-import ru.practicum.statistics_client.client.StatClient;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,7 +18,6 @@ public class EventPrivateController {
 
     private EventService eventService;
 
-    private final StatClient statClient;
 
     @PostMapping("/{userId}/events")
     @ResponseStatus(HttpStatus.CREATED)
@@ -72,4 +70,5 @@ public class EventPrivateController {
     ) {
         return eventService.changeRequestsByUser(request, userId, eventId);
     }
+
 }

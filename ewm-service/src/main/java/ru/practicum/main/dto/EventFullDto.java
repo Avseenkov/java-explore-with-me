@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.practicum.main.model.Location;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -48,4 +49,6 @@ public class EventFullDto {
     private String title;
 
     private long views;
+
+    private List<CommentShortDto> comments;
 }
