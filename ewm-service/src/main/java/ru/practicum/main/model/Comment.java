@@ -29,6 +29,7 @@ public class Comment {
     private User author;
 
     @NotNull
+    @Column(name = "content")
     private String text;
 
     @NotNull

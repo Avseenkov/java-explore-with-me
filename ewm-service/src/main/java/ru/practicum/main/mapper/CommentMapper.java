@@ -11,12 +11,13 @@ import java.util.List;
 public class CommentMapper {
 
     public static CommentShortDto toCommentShortDto(Comment comment) {
-        CommentShortDto commentShortDto = new CommentShortDto();
+        CommentShortDto commentShortDto = CommentShortDto.builder()
+                .id(comment.getId())
+                .authorName(comment.getAuthor().getName())
+                .text(comment.getText())
+                .createdAt(Settings.getFormatter().format(comment.getCreatedAt()))
+                .build();
 
-        commentShortDto.setId(comment.getId());
-        commentShortDto.setAuthorName(comment.getAuthor().getName());
-        commentShortDto.setText(comment.getText());
-        commentShortDto.setCreatedAt(Settings.getFormatter().format(comment.getCreatedAt()));
         return commentShortDto;
     }
 
